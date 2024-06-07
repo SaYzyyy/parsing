@@ -1,0 +1,115 @@
+import asyncio
+from aiogram import Bot, Dispatcher, F
+from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.filters import CommandStart, Command
+from real_wb_parser import collect_data as cd
+import json
+import time
+from time import gmtime, strftime
+
+bot = Bot(token='Your_Token')
+dp = Dispatcher()
+
+@dp.message(CommandStart())
+async def start(message: Message):
+
+	main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text = '/500')], [KeyboardButton(text = '/1000')], [KeyboardButton(text = '/1500')], [KeyboardButton(text = '/2000')]], resize_keyboard=True, input_field_placeholder='Выберите цену...')
+
+	await message.answer('Выберите цену...', reply_markup=main)
+
+@dp.message(Command('500'))
+async def parse(message: Message):
+
+	print(f'\n\n\n{strftime("%Y-%m-%d %H:%M:%S", gmtime())}')
+
+	cd(price1=500)
+
+	with open('result.json', 'r', encoding='utf-8') as file:
+		data = json.load(file)
+	
+	count = 0
+
+	for item in data:
+		card = f'Товар: {item.get('Название')}\nСсылка: {item.get('Ссылка')}\n' \
+			f'Магазин: {item.get('Магазин')}\n' \
+			f'Цена без скидки: {item.get('Цена без скидки')}\nЦена со скидкой: {item.get('Цена со скидкой')}\n' \
+			f'Оценка: {item.get('Рейтинг')}'
+		await message.answer(card)
+		count +=1
+		if count==20:
+			time.sleep(3)
+
+@dp.message(Command('1000'))
+async def parse(message: Message):
+
+	print(f'\n\n\n{strftime("%Y-%m-%d %H:%M:%S", gmtime())}')
+
+	cd(price1=1000)
+
+	with open('result.json', 'r', encoding='utf-8') as file:
+		data = json.load(file)
+	
+	count = 0
+
+	for item in data:
+		card = f'Товар: {item.get('Название')}\nСсылка: {item.get('Ссылка')}\n' \
+			f'Магазин: {item.get('Магазин')}\n' \
+			f'Цена без скидки: {item.get('Цена без скидки')}\nЦена со скидкой: {item.get('Цена со скидкой')}\n' \
+			f'Оценка: {item.get('Рейтинг')}'
+		await message.answer(card)
+		count +=1
+		if count==20:
+			time.sleep(3)
+
+@dp.message(Command('1500'))
+async def parse(message: Message):
+
+	print(f'\n\n\n{strftime("%Y-%m-%d %H:%M:%S", gmtime())}')
+
+	cd(price1=1500)
+
+	with open('result.json', 'r', encoding='utf-8') as file:
+		data = json.load(file)
+	
+	count = 0
+
+	for item in data:
+		card = f'Товар: {item.get('Название')}\nСсылка: {item.get('Ссылка')}\n' \
+			f'Магазин: {item.get('Магазин')}\n' \
+			f'Цена без скидки: {item.get('Цена без скидки')}\nЦена со скидкой: {item.get('Цена со скидкой')}\n' \
+			f'Оценка: {item.get('Рейтинг')}'
+		await message.answer(card)
+		count +=1
+		if count==20:
+			time.sleep(3)
+
+@dp.message(Command('2000'))
+async def parse(message: Message):
+
+	print(f'\n\n\n{strftime("%Y-%m-%d %H:%M:%S", gmtime())}')
+
+	cd(price1=2000)
+
+	with open('result.json', 'r', encoding='utf-8') as file:
+		data = json.load(file)
+	
+	count = 0
+
+	for item in data:
+		card = f'Товар: {item.get('Название')}\nСсылка: {item.get('Ссылка')}\n' \
+			f'Магазин: {item.get('Магазин')}\n' \
+			f'Цена без скидки: {item.get('Цена без скидки')}\nЦена со скидкой: {item.get('Цена со скидкой')}\n' \
+			f'Оценка: {item.get('Рейтинг')}'
+		await message.answer(card)
+		count +=1
+		if count==20:
+			time.sleep(3)
+
+async def main():
+	await dp.start_polling(bot)
+
+if __name__ == '__main__':
+	try:
+		asyncio.run(main())
+	except Exception:
+		print('бот выключен')
