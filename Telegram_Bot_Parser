@@ -7,7 +7,7 @@ import json
 import time
 from time import gmtime, strftime
 
-bot = Bot(token='Your_Token')
+bot = Bot(token='6458333930:AAHsYBDD1z6u9BCjK-xh4eppURlOO-9Fc0Q')
 dp = Dispatcher()
 
 @dp.message(CommandStart())
